@@ -1,10 +1,12 @@
-import React from 'react';
+import React from "react";
+import TodoItem from "./TodoItem";
+import "./TodoList.css";
 
 const TodoList = ({ list }) => {
   return (
-    <ul>
+    <ul className="todo-list">
       {list.map((todo, index) => (
-        <li key={index}>{todo}</li>
+        <TodoItem key={index} todo={todo} />
       ))}
     </ul>
   );

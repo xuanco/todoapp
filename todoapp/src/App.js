@@ -1,49 +1,30 @@
-import React, { Component } from 'react';
-import './App.css';
+import React, { useState } from "react";
+import TodoInput from "./components/TodoInput";
+import TodoList from "./components/TodoList";
+import "./App.css";
 
-class App extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      list: [],
-      item: ''
-    };
-  }
+const App = () => {
+  const [list, setList] = useState([]);
+  const [item, setItem] = useState("");
 
-  handleChange = (event) => {
-    this.setState({ item: event.target.value });
+  const handleChange = (event) => {
+    setItem(event.target.value);
   };
 
-  handleAddItem = () => {
-    if (this.state.item.trim() !== '') {
-      this.setState((prevState) => ({
-        list: [...prevState.list, prevState.item],
-        item: ''
-      }));
+  const handleAddItem = () => {
+    if (item.trim() !== "") {
+      setList([...list, item]);
+      setItem("");
     }
   };
 
-  render() {
-    return (
-      <div className="container">
-        <h1>Todo List</h1>
-        <div>
-          <input
-            type="text"
-            value={this.state.item}
-            onChange={this.handleChange}
-            placeholder="Nhập công việc..."
-          />
-          <button onClick={this.handleAddItem}>Add</button>
-        </div>
-        <ul>
-          {this.state.list.map((todo, index) => (
-            <li key={index}>{todo}</li>
-          ))}
-        </ul>
-      </div>
-    );
-  }
-}
+  return (
+    <div className="app-container">
+      <h1>Todo List</h1>
+      <TodoInput item={item} handleChange={handleChange} handleAddItem={handleAddItem} />
+      <TodoList list={list} />
+    </div>
+  );
+};
 
 export default App;
